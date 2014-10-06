@@ -112,7 +112,7 @@ KJUR.jws.JWS = function() {
 	this.parsedJWS.headS = sHead;
 	this.parsedJWS.payloadS = sPayload;
 
-	if (! this.isSafeJSONString(sHead, this.parsedJWS, 'headP'))
+	if (! KJUR.jws.JWS.isSafeJSONString(sHead, this.parsedJWS, 'headP'))
 	    throw "malformed JSON string for JWS Head: " + sHead;
     };
 
@@ -273,7 +273,7 @@ KJUR.jws.JWS = function() {
      * @deprecated from 3.0.0 please move to {@link KJUR.jws.JWS.sign}
      */
     this.generateJWSByNED = function(sHead, sPayload, hN, hE, hD) {
-	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
+	if (! KJUR.jws.JWS.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
 	var b64SigValue = hextob64u(hSigValue);
@@ -302,7 +302,7 @@ KJUR.jws.JWS = function() {
      */
     this.generateJWSByKey = function(sHead, sPayload, key) {
 	var obj = {};
-	if (!this.isSafeJSONString(sHead, obj, 'headP'))
+	if (!KJUR.jws.JWS.isSafeJSONString(sHead, obj, 'headP'))
 	    throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var b64SigValue = _jws_generateSignatureValueBySI_Key(sHead, sPayload, sSI, key, obj.headP);
@@ -341,7 +341,7 @@ KJUR.jws.JWS = function() {
      * @deprecated from 3.0.0 please move to {@link KJUR.jws.JWS.sign}
      */
     this.generateJWSByP1PrvKey = function(sHead, sPayload, sPemPrvKey) {
-	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
+	if (! KJUR.jws.JWS.isSafeJSONString.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_PemPrvKey(sHead, sPayload, sSI, sPemPrvKey);
 	var b64SigValue = hextob64u(hSigValue);
